@@ -106,8 +106,8 @@ public class CIETagReader {
                 completed(nil, sw)
             }
             else
-            {
-                completed(respone as Data, 0)
+            {                
+                completed(certificate as Data, 0)
             }
         }
     }

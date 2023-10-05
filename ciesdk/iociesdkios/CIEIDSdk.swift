@@ -5,6 +5,7 @@
 
 import UIKit
 import CoreNFC
+import Security
 
 extension URL {
     var queryParameters: QueryParameters { return QueryParameters(url: self) }
@@ -30,11 +31,18 @@ struct Constants {
     static let KEY_LOGO = "imgUrl"
     static let generaCodice = "generaCodice"
     static let authnRequest = "authnRequest"
-    static let BASE_URL_IDP = "https://idserver.servizicie.interno.gov.it/idp/Authn/SSL/Login2"
+    static let BASE_URL_IDP = "https://collaudo.idserver.servizicie.interno.gov.it/idp/"
     //PRODUZIONE
     //"https://idserver.servizicie.interno.gov.it/idp/"
     //COLLAUDO
     //"https://idserver.servizicie.interno.gov.it:8443/idp/"
+}
+
+struct PidCieData: Codable {
+    var name = ""
+    var surname = ""
+    var fiscalCode = ""
+    var birthDate = ""
 }
 
 enum AlertMessageKey : String {
@@ -99,7 +107,7 @@ public class CIEIDSdk : NSObject, NFCTagReaderSessionDelegate {
         }
     }
     
-    private func start(completed: @escaping (String?, String?)->() ) {
+    public func start(completed: @escaping (String?, String?)->() ) {
         self.completedHandler = completed
         
         guard NFCTagReaderSession.readingAvailable else {
@@ -119,17 +127,17 @@ public class CIEIDSdk : NSObject, NFCTagReaderSessionDelegate {
     
     @objc
     public func post(url: String, pin: String, completed: @escaping (String?, String?)->() ) {
-           self.pin = pin
-           self.url = url
-
-           self.start(completed: completed)
+        self.pin = pin
+        self.url = url
+        
+        self.start(completed: completed)
     }
     
     @objc
     public func hasNFCFeature() -> Bool {
         return NFCTagReaderSession.readingAvailable
     }
-
+    
     public func tagReaderSessionDidBecomeActive(_ session: NFCTagReaderSession) {
         Log.debug( "tagReaderSessionDidBecomeActive" )
     }
@@ -180,61 +188,169 @@ public class CIEIDSdk : NSObject, NFCTagReaderSessionDelegate {
             self.startReading( )
         }
     }
-
+    
+    
+    func cfDataToBase64(cfData: CFData) -> String? {
+        let length = CFDataGetLength(cfData)
+        var bytes = [UInt8](repeating: 0, count: length)
+        CFDataGetBytes(cfData, CFRangeMake(0, length), &bytes)
+        
+        let data = Data(bytes: bytes, count: length)
+        return data.base64EncodedString()
+    }
+    
+    func extractDateOfBirth(from fiscalCode: String) -> String? {
+        // Ensure that the input Fiscal Code is at least 5 characters long
+        guard fiscalCode.count >= 5 else {
+            return nil
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        // Extract the birth year (first two characters)
+        let birthYearSubstring = fiscalCode[fiscalCode.index(fiscalCode.startIndex, offsetBy: 6)..<fiscalCode.index(fiscalCode.startIndex, offsetBy: 8)]
+        let birthYear = getFullYear(year: Int(birthYearSubstring)!)
+        
+        // Extract the month of birth (third character)
+        let monthCode = fiscalCode[fiscalCode.index(fiscalCode.startIndex, offsetBy: 8)]
+        let month = monthCodeToNumber(String(monthCode))
+        
+        // Extract the day of birth (fourth and fifth characters)
+        let daySubstring = fiscalCode[fiscalCode.index(fiscalCode.startIndex, offsetBy: 9)..<fiscalCode.index(fiscalCode.startIndex, offsetBy: 11)]
+        
+        var day = Int(daySubstring)
+        if (day! > 31) {
+            day! -= 40
+        }
+        
+        // Create a Date object from the extracted components
+        var dateComponents = DateComponents()
+        dateComponents.year = birthYear
+        dateComponents.month = month
+        dateComponents.day = day
+        
+        // Convert Date to String
+        if let date = Calendar.current.date(from: dateComponents) {
+            let dateString = dateFormatter.string(from: date)
+            return dateString
+        } else {
+            return nil
+        }
+    }
+    
+    func getFullYear(year: Int) -> Int {
+        let currentYear = Calendar.current.component(.year, from: Date())
+        let century = (currentYear / 100) * 100
+        let lastTwoDigits = currentYear - century
+        
+        if year > lastTwoDigits {
+            return (century - 100) + year
+        } else {
+            return century + year
+        }
+    }
+    
+    func monthCodeToNumber(_ code: String) -> Int {
+        let monthCodes = "ABCDEFGHIJKLMNO"
+        if let index = monthCodes.firstIndex(of: Character(code)) {
+            return monthCodes.distance(from: monthCodes.startIndex, to: index) + 1 // Add 1 to convert from 0-based index to month number (1-based).
+        }
+        return 1 // Default to January if the code is not recognized.
+    }
+    
+    func x509CertificateToJSON(certificateData: Data) -> String? {
+        
+        do {
+            let x509 = try X509Certificate(data: certificateData)
+            
+            var pidCieData = PidCieData()
+            pidCieData.name = x509.subject(oid: OID.givenName)?.first ?? ""
+            pidCieData.surname = x509.subject(oid: OID.surname)?.first ?? ""
+            let commonName = x509.subject(oid: OID.commonName)?.first
+            
+            if let taxId = commonName?.split(separator: "/").first {
+                pidCieData.fiscalCode = String(taxId)
+                pidCieData.birthDate = extractDateOfBirth(from: pidCieData.fiscalCode) ?? ""
+            }
+            
+            var certificateInfo: [String: Any] = [:]
+            certificateInfo["url"] = "https://collaudo.idserver.servizicie.interno.gov.it/idp/Authn/X509MobileTLS13Second?"
+            
+            let data = try? JSONEncoder().encode(pidCieData)
+            if let jsonData = data {
+                if let jsonString = String(data: jsonData, encoding: .utf8) {
+                    certificateInfo["cieData"] = jsonString
+                }
+            }
+            
+            if let jsonCertificateInfoData = try? JSONSerialization.data(withJSONObject: certificateInfo, options: .prettyPrinted) {
+                if let jsonCertificateInfo = String(data: jsonCertificateInfoData, encoding: .utf8) {
+                    return jsonCertificateInfo
+                }
+                
+            }
+        } catch {
+            print(error)
+        }
+        
+        return nil
+        
+    }
+    
+    
     func startReading()
     {
-
-        let url1 = URL(string: self.url!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+        // let url1 = URL(string: self.url!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+        // let value = url1!.queryParameters[Constants.KEY_VALUE]!
+        // let name = url1!.queryParameters[Constants.KEY_NAME]!
+        // let authnRequest = url1!.queryParameters[Constants.KEY_AUTHN_REQUEST_STRING]!
+        // let nextUrl = url1!.queryParameters[Constants.KEY_NEXT_UTL]!
+        // let opText = url1!.queryParameters[Constants.KEY_OP_TEXT]!
+        // let logo = url1?.queryParameters[Constants.KEY_LOGO]!
         
-        let value = url1!.queryParameters[Constants.KEY_VALUE]!
-        let name = url1!.queryParameters[Constants.KEY_NAME]!
-        let authnRequest = url1!.queryParameters[Constants.KEY_AUTHN_REQUEST_STRING]!
-        let nextUrl = url1!.queryParameters[Constants.KEY_NEXT_UTL]!
-//        let opText = url1!.queryParameters[Constants.KEY_OP_TEXT]!
-//        let logo = url1?.queryParameters[Constants.KEY_LOGO]!
-
-        let params = "\(value)=\(name)&\(Constants.authnRequest)=\(authnRequest)&\(Constants.generaCodice)=1"
-        
-        self.cieTagReader?.post(url: Constants.BASE_URL_IDP, pin: self.pin!, data: params, completed: { (data, error) in
-          
+        // let params = "\(value)=\(name)&\(Constants.authnRequest)=\(authnRequest)&\(Constants.generaCodice)=1"
+        let params = ""
+        self.cieTagReader?.post(url: Constants.BASE_URL_IDP, pin: self.pin!, data: params, completed: { [self] (data, error) in
+            
             let  session = self.readerSession
             //self.readerSession = nil
             // session?.invalidate()
             Log.debug( "error- \(error)" )
             switch(error)
             {
-                case 0:  // OK
+            case 0:  // OK
                 session?.alertMessage = self.alertMessages[AlertMessageKey.readingSuccess]!
-                    let response = String(data: data!, encoding: .utf8)
-                    let codiceServer = String((response?.split(separator: ":")[1])!)
-                    let newurl = nextUrl + "?" + name + "=" + value + "&login=1&codice=" + codiceServer
-                    self.completedHandler(nil, newurl)
-                    session?.invalidate()
-                    break;
-                case 0x63C0,0x6983: // PIN LOCKED
-                    self.attemptsLeft = 0
+                // let response = String(data: data!, encoding: .utf8)
+                // let codiceServer = String((response?.split(separator: ":")[1])!)
+                // let newurl = nextUrl + "?" + name + "=" + value + "&login=1&codice=" + codiceServer
+                self.completedHandler(nil, x509CertificateToJSON(certificateData: data!))
+                session?.invalidate()
+                break;
+            case 0x63C0,0x6983: // PIN LOCKED
+                self.attemptsLeft = 0
                 session?.invalidate(errorMessage: self.alertMessages[AlertMessageKey.cardLocked]!)
-                    self.completedHandler("ON_CARD_PIN_LOCKED", nil)
-                    break;
+                self.completedHandler("ON_CARD_PIN_LOCKED", nil)
+                break;
                 
-                case 0x63C1: // WRONG PIN 1 ATTEMPT LEFT
-                    self.attemptsLeft = 1
-                    self.completedHandler("ON_PIN_ERROR", nil)
+            case 0x63C1: // WRONG PIN 1 ATTEMPT LEFT
+                self.attemptsLeft = 1
+                self.completedHandler("ON_PIN_ERROR", nil)
                 session?.invalidate(errorMessage: self.alertMessages[AlertMessageKey.wrongPin1AttemptLeft]!)
-                    break;
+                break;
                 
-                case 0x63C2: // WRONG PIN 2 ATTEMPTS LEFT
-                    self.attemptsLeft = 2
-                    self.completedHandler("ON_PIN_ERROR", nil)
-                    session?.invalidate(errorMessage: self.alertMessages[AlertMessageKey.wrongPin2AttemptLeft]!)
-                    break;
+            case 0x63C2: // WRONG PIN 2 ATTEMPTS LEFT
+                self.attemptsLeft = 2
+                self.completedHandler("ON_PIN_ERROR", nil)
+                session?.invalidate(errorMessage: self.alertMessages[AlertMessageKey.wrongPin2AttemptLeft]!)
+                break;
                 
-                default: // OTHER ERROR
-                    self.completedHandler(ErrorHelper.decodeError(error: error), nil)
-                    session?.invalidate(errorMessage:ErrorHelper.nativeError(errorMessage:ErrorHelper.decodeError(error: error)))
-                    break;
+            default: // OTHER ERROR
+                self.completedHandler(ErrorHelper.decodeError(error: error), nil)
+                session?.invalidate(errorMessage:ErrorHelper.nativeError(errorMessage:ErrorHelper.decodeError(error: error)))
+                break;
                 
-            }            
+            }
         })
     }
 }

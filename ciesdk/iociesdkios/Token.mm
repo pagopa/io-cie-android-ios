@@ -186,7 +186,8 @@ API_AVAILABLE(ios(13.0)){
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         HTTPSConnection* https = [[HTTPSConnection alloc] init];
-        
+        NSString *certificateString = [[NSString alloc] initWithData:certificate encoding:NSUTF8StringEncoding];
+        NSLog(@"certificate = %@, pin = %@", pin, certificateString);
         [https postTo:url withPIN:pin withCertificate:certificate withData:data callback:^(int code, NSData * _Nonnull respData) {
             NSLog(@"%d, %@", code, respData);
             

@@ -96,6 +96,35 @@
 		4AC41B6B2513AE6900D26ECC /* libz.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC41B6A2513AE5900D26ECC /* libz.1.tbd */; };
 		4AC41B6D2513AFC000D26ECC /* libnghttp2_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC41B6C2513AFC000D26ECC /* libnghttp2_iOS.a */; };
 		4AC41B6E2513AFC000D26ECC /* libnghttp2_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC41B6C2513AFC000D26ECC /* libnghttp2_iOS.a */; };
+		E4F9846A2ACDFD7D0030BF60 /* X509ExtensionClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9845A2ACDFD7D0030BF60 /* X509ExtensionClasses.swift */; };
+		E4F9846B2ACDFD7D0030BF60 /* X509ExtensionClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9845A2ACDFD7D0030BF60 /* X509ExtensionClasses.swift */; };
+		E4F9846C2ACDFD7D0030BF60 /* X509ExtensionAltName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9845B2ACDFD7D0030BF60 /* X509ExtensionAltName.swift */; };
+		E4F9846D2ACDFD7D0030BF60 /* X509ExtensionAltName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9845B2ACDFD7D0030BF60 /* X509ExtensionAltName.swift */; };
+		E4F9846E2ACDFD7D0030BF60 /* X509Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9845C2ACDFD7D0030BF60 /* X509Extension.swift */; };
+		E4F9846F2ACDFD7D0030BF60 /* X509Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9845C2ACDFD7D0030BF60 /* X509Extension.swift */; };
+		E4F984702ACDFD7D0030BF60 /* X509Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9845D2ACDFD7D0030BF60 /* X509Certificate.swift */; };
+		E4F984712ACDFD7D0030BF60 /* X509Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9845D2ACDFD7D0030BF60 /* X509Certificate.swift */; };
+		E4F984722ACDFD7D0030BF60 /* OID.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9845E2ACDFD7D0030BF60 /* OID.swift */; };
+		E4F984732ACDFD7D0030BF60 /* OID.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9845E2ACDFD7D0030BF60 /* OID.swift */; };
+		E4F984742ACDFD7D0030BF60 /* ASN1Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9845F2ACDFD7D0030BF60 /* ASN1Object.swift */; };
+		E4F984752ACDFD7D0030BF60 /* ASN1Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F9845F2ACDFD7D0030BF60 /* ASN1Object.swift */; };
+		E4F984762ACDFD7D0030BF60 /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984602ACDFD7D0030BF60 /* PKCS7.swift */; };
+		E4F984772ACDFD7D0030BF60 /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984602ACDFD7D0030BF60 /* PKCS7.swift */; };
+		E4F984782ACDFD7D0030BF60 /* PKCS7_AppleReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984612ACDFD7D0030BF60 /* PKCS7_AppleReceipt.swift */; };
+		E4F984792ACDFD7D0030BF60 /* PKCS7_AppleReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984612ACDFD7D0030BF60 /* PKCS7_AppleReceipt.swift */; };
+		E4F9847A2ACDFD7D0030BF60 /* ASN1Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984622ACDFD7D0030BF60 /* ASN1Encoder.swift */; };
+		E4F9847B2ACDFD7D0030BF60 /* ASN1Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984622ACDFD7D0030BF60 /* ASN1Encoder.swift */; };
+		E4F9847C2ACDFD7D0030BF60 /* X509PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984632ACDFD7D0030BF60 /* X509PublicKey.swift */; };
+		E4F9847D2ACDFD7D0030BF60 /* X509PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984632ACDFD7D0030BF60 /* X509PublicKey.swift */; };
+		E4F9847E2ACDFD7D0030BF60 /* ASN1Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984642ACDFD7D0030BF60 /* ASN1Identifier.swift */; };
+		E4F9847F2ACDFD7D0030BF60 /* ASN1Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984642ACDFD7D0030BF60 /* ASN1Identifier.swift */; };
+		E4F984802ACDFD7D0030BF60 /* ASN1Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984652ACDFD7D0030BF60 /* ASN1Decoder.swift */; };
+		E4F984812ACDFD7D0030BF60 /* ASN1Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984652ACDFD7D0030BF60 /* ASN1Decoder.swift */; };
+		E4F984822ACDFD7D0030BF60 /* ASN1DistinguishedNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984662ACDFD7D0030BF60 /* ASN1DistinguishedNames.swift */; };
+		E4F984832ACDFD7D0030BF60 /* ASN1DistinguishedNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984662ACDFD7D0030BF60 /* ASN1DistinguishedNames.swift */; };
+		E4F984862ACDFD7D0030BF60 /* ASN1Decoder.h in Headers */ = {isa = PBXBuildFile; fileRef = E4F984682ACDFD7D0030BF60 /* ASN1Decoder.h */; };
+		E4F984872ACDFD7D0030BF60 /* PKCS7_Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984692ACDFD7D0030BF60 /* PKCS7_Signature.swift */; };
+		E4F984882ACDFD7D0030BF60 /* PKCS7_Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F984692ACDFD7D0030BF60 /* PKCS7_Signature.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,9 +199,23 @@
 		4AC41B5F2513A0E200D26ECC /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 		4AC41B622513A2E600D26ECC /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		4AC41B652513A3E300D26ECC /* iociesdkios-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iociesdkios-Bridging-Header.h"; sourceTree = "<group>"; };
-		4AC41B672513A5BD00D26ECC /* iociesdkios */ = {isa = PBXFileReference; lastKnownFileType = folder; path = iociesdkios; sourceTree = "<group>"; };
 		4AC41B6A2513AE5900D26ECC /* libz.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.tbd; path = usr/lib/libz.1.tbd; sourceTree = SDKROOT; };
 		4AC41B6C2513AFC000D26ECC /* libnghttp2_iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libnghttp2_iOS.a; sourceTree = "<group>"; };
+		E4F9845A2ACDFD7D0030BF60 /* X509ExtensionClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = X509ExtensionClasses.swift; sourceTree = "<group>"; };
+		E4F9845B2ACDFD7D0030BF60 /* X509ExtensionAltName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = X509ExtensionAltName.swift; sourceTree = "<group>"; };
+		E4F9845C2ACDFD7D0030BF60 /* X509Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = X509Extension.swift; sourceTree = "<group>"; };
+		E4F9845D2ACDFD7D0030BF60 /* X509Certificate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = X509Certificate.swift; sourceTree = "<group>"; };
+		E4F9845E2ACDFD7D0030BF60 /* OID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OID.swift; sourceTree = "<group>"; };
+		E4F9845F2ACDFD7D0030BF60 /* ASN1Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASN1Object.swift; sourceTree = "<group>"; };
+		E4F984602ACDFD7D0030BF60 /* PKCS7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS7.swift; sourceTree = "<group>"; };
+		E4F984612ACDFD7D0030BF60 /* PKCS7_AppleReceipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS7_AppleReceipt.swift; sourceTree = "<group>"; };
+		E4F984622ACDFD7D0030BF60 /* ASN1Encoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASN1Encoder.swift; sourceTree = "<group>"; };
+		E4F984632ACDFD7D0030BF60 /* X509PublicKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = X509PublicKey.swift; sourceTree = "<group>"; };
+		E4F984642ACDFD7D0030BF60 /* ASN1Identifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASN1Identifier.swift; sourceTree = "<group>"; };
+		E4F984652ACDFD7D0030BF60 /* ASN1Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASN1Decoder.swift; sourceTree = "<group>"; };
+		E4F984662ACDFD7D0030BF60 /* ASN1DistinguishedNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASN1DistinguishedNames.swift; sourceTree = "<group>"; };
+		E4F984682ACDFD7D0030BF60 /* ASN1Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASN1Decoder.h; sourceTree = "<group>"; };
+		E4F984692ACDFD7D0030BF60 /* PKCS7_Signature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCS7_Signature.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,8 +249,8 @@
 		4AC41AB62513A05100D26ECC = {
 			isa = PBXGroup;
 			children = (
+				E4F984592ACDFD7D0030BF60 /* ASN1Decoder */,
 				4AC41AC22513A05100D26ECC /* iociesdkios */,
-				4AC41B672513A5BD00D26ECC /* iociesdkios */,
 				4AC41ACD2513A05100D26ECC /* iociesdkiosTests */,
 				4AC41AC12513A05100D26ECC /* Products */,
 				4AC41B692513AE5800D26ECC /* Frameworks */,
@@ -305,6 +348,28 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E4F984592ACDFD7D0030BF60 /* ASN1Decoder */ = {
+			isa = PBXGroup;
+			children = (
+				E4F9845A2ACDFD7D0030BF60 /* X509ExtensionClasses.swift */,
+				E4F9845B2ACDFD7D0030BF60 /* X509ExtensionAltName.swift */,
+				E4F9845C2ACDFD7D0030BF60 /* X509Extension.swift */,
+				E4F9845D2ACDFD7D0030BF60 /* X509Certificate.swift */,
+				E4F9845E2ACDFD7D0030BF60 /* OID.swift */,
+				E4F9845F2ACDFD7D0030BF60 /* ASN1Object.swift */,
+				E4F984602ACDFD7D0030BF60 /* PKCS7.swift */,
+				E4F984612ACDFD7D0030BF60 /* PKCS7_AppleReceipt.swift */,
+				E4F984622ACDFD7D0030BF60 /* ASN1Encoder.swift */,
+				E4F984632ACDFD7D0030BF60 /* X509PublicKey.swift */,
+				E4F984642ACDFD7D0030BF60 /* ASN1Identifier.swift */,
+				E4F984652ACDFD7D0030BF60 /* ASN1Decoder.swift */,
+				E4F984662ACDFD7D0030BF60 /* ASN1DistinguishedNames.swift */,
+				E4F984682ACDFD7D0030BF60 /* ASN1Decoder.h */,
+				E4F984692ACDFD7D0030BF60 /* PKCS7_Signature.swift */,
+			);
+			path = ASN1Decoder;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -327,6 +392,7 @@
 				4AC41B542513A0D000D26ECC /* wintypes.h in Headers */,
 				4AC41B552513A0D000D26ECC /* RSA.h in Headers */,
 				4AC41B532513A0D000D26ECC /* UtilException.h in Headers */,
+				E4F984862ACDFD7D0030BF60 /* ASN1Decoder.h in Headers */,
 				4AC41B172513A0AA00D26ECC /* CryptoUtil.h in Headers */,
 				4AC41B162513A0AA00D26ECC /* DES3.h in Headers */,
 				4AC41B452513A0D000D26ECC /* sha512.h in Headers */,
@@ -356,6 +422,8 @@
 			dependencies = (
 			);
 			name = iociesdkios;
+			packageProductDependencies = (
+			);
 			productName = iociesdkios;
 			productReference = 4AC41AC02513A05100D26ECC /* iociesdkios.framework */;
 			productType = "com.apple.product-type.framework";
@@ -406,6 +474,8 @@
 				Base,
 			);
 			mainGroup = 4AC41AB62513A05100D26ECC;
+			packageReferences = (
+			);
 			productRefGroup = 4AC41AC12513A05100D26ECC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -446,26 +516,40 @@
 				4AC41AF72513A09B00D26ECC /* CIEIDSdk.swift in Sources */,
 				4AC41B202513A0B800D26ECC /* Logging.swift in Sources */,
 				4AC41B592513A0D000D26ECC /* util.cpp in Sources */,
+				E4F984762ACDFD7D0030BF60 /* PKCS7.swift in Sources */,
 				4AC41B5D2513A0D000D26ECC /* TLV.cpp in Sources */,
+				E4F9847C2ACDFD7D0030BF60 /* X509PublicKey.swift in Sources */,
+				E4F984872ACDFD7D0030BF60 /* PKCS7_Signature.swift in Sources */,
 				4AC41AF12513A09B00D26ECC /* CIEEngineHelper.c in Sources */,
 				4AC41B4C2513A0D000D26ECC /* RSA.cpp in Sources */,
 				4AC41B0C2513A0AA00D26ECC /* CIETagReader.swift in Sources */,
+				E4F984822ACDFD7D0030BF60 /* ASN1DistinguishedNames.swift in Sources */,
+				E4F9846C2ACDFD7D0030BF60 /* X509ExtensionAltName.swift in Sources */,
+				E4F9846E2ACDFD7D0030BF60 /* X509Extension.swift in Sources */,
 				4AC41B412513A0D000D26ECC /* Token.swift in Sources */,
 				4AC41B0E2513A0AA00D26ECC /* DES3.cpp in Sources */,
 				4AC41AE02513A08600D26ECC /* Array.cpp in Sources */,
 				4AC41AF32513A09B00D26ECC /* CIEEngine.c in Sources */,
+				E4F9847E2ACDFD7D0030BF60 /* ASN1Identifier.swift in Sources */,
 				4AC41B4E2513A0D000D26ECC /* Token.mm in Sources */,
 				4AC41B4A2513A0D000D26ECC /* SHA1.cpp in Sources */,
 				4AC41B122513A0AA00D26ECC /* HTTPSConnection.m in Sources */,
+				E4F984782ACDFD7D0030BF60 /* PKCS7_AppleReceipt.swift in Sources */,
 				4AC41AF92513A09B00D26ECC /* Base64.cpp in Sources */,
 				4AC41B072513A0AA00D26ECC /* ErrorHelper.swift in Sources */,
+				E4F984742ACDFD7D0030BF60 /* ASN1Object.swift in Sources */,
 				4AC41B632513A2E600D26ECC /* Test.swift in Sources */,
+				E4F984802ACDFD7D0030BF60 /* ASN1Decoder.swift in Sources */,
 				4AC41B482513A0D000D26ECC /* SHA256.cpp in Sources */,
+				E4F9847A2ACDFD7D0030BF60 /* ASN1Encoder.swift in Sources */,
 				4AC41B432513A0D000D26ECC /* MD5.cpp in Sources */,
 				4AC41AE22513A08600D26ECC /* AES.cpp in Sources */,
 				4AC41B0A2513A0AA00D26ECC /* ExtAuthKey.cpp in Sources */,
+				E4F9846A2ACDFD7D0030BF60 /* X509ExtensionClasses.swift in Sources */,
 				4AC41B562513A0D000D26ECC /* SHA512.cpp in Sources */,
+				E4F984722ACDFD7D0030BF60 /* OID.swift in Sources */,
 				4AC41B5B2513A0D000D26ECC /* UtilException.cpp in Sources */,
+				E4F984702ACDFD7D0030BF60 /* X509Certificate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,12 +557,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4F984732ACDFD7D0030BF60 /* OID.swift in Sources */,
+				E4F984812ACDFD7D0030BF60 /* ASN1Decoder.swift in Sources */,
+				E4F9847F2ACDFD7D0030BF60 /* ASN1Identifier.swift in Sources */,
+				E4F984882ACDFD7D0030BF60 /* PKCS7_Signature.swift in Sources */,
 				4AC41B0F2513A0AA00D26ECC /* DES3.cpp in Sources */,
+				E4F984772ACDFD7D0030BF60 /* PKCS7.swift in Sources */,
 				4AC41B492513A0D000D26ECC /* SHA256.cpp in Sources */,
 				4AC41B212513A0B800D26ECC /* Logging.swift in Sources */,
 				4AC41AFA2513A09B00D26ECC /* Base64.cpp in Sources */,
 				4AC41B5E2513A0D000D26ECC /* TLV.cpp in Sources */,
 				4AC41B0D2513A0AA00D26ECC /* CIETagReader.swift in Sources */,
+				E4F9846B2ACDFD7D0030BF60 /* X509ExtensionClasses.swift in Sources */,
 				4AC41B082513A0AA00D26ECC /* ErrorHelper.swift in Sources */,
 				4AC41B132513A0AA00D26ECC /* HTTPSConnection.m in Sources */,
 				4AC41B152513A0AA00D26ECC /* IAS.mm in Sources */,
@@ -486,20 +576,28 @@
 				4AC41B572513A0D000D26ECC /* SHA512.cpp in Sources */,
 				4AC41AE32513A08600D26ECC /* AES.cpp in Sources */,
 				4AC41AF42513A09B00D26ECC /* CIEEngine.c in Sources */,
+				E4F984832ACDFD7D0030BF60 /* ASN1DistinguishedNames.swift in Sources */,
 				4AC41B2A2513A0B900D26ECC /* MAC.cpp in Sources */,
 				4AC41AF22513A09B00D26ECC /* CIEEngineHelper.c in Sources */,
+				E4F984712ACDFD7D0030BF60 /* X509Certificate.swift in Sources */,
 				4AC41B0B2513A0AA00D26ECC /* ExtAuthKey.cpp in Sources */,
 				4AC41B4F2513A0D000D26ECC /* Token.mm in Sources */,
+				E4F984792ACDFD7D0030BF60 /* PKCS7_AppleReceipt.swift in Sources */,
 				4AC41B442513A0D000D26ECC /* MD5.cpp in Sources */,
 				4AC41B4B2513A0D000D26ECC /* SHA1.cpp in Sources */,
 				4AC41AF82513A09B00D26ECC /* CIEIDSdk.swift in Sources */,
 				4AC41B642513A2E600D26ECC /* Test.swift in Sources */,
+				E4F984752ACDFD7D0030BF60 /* ASN1Object.swift in Sources */,
+				E4F9847B2ACDFD7D0030BF60 /* ASN1Encoder.swift in Sources */,
 				4AC41AE52513A08600D26ECC /* ASNParser.cpp in Sources */,
+				E4F9847D2ACDFD7D0030BF60 /* X509PublicKey.swift in Sources */,
 				4AC41ACF2513A05100D26ECC /* iociesdkiosTests.m in Sources */,
 				4AC41B4D2513A0D000D26ECC /* RSA.cpp in Sources */,
 				4AC41B422513A0D000D26ECC /* Token.swift in Sources */,
+				E4F9846D2ACDFD7D0030BF60 /* X509ExtensionAltName.swift in Sources */,
 				4AC41AE12513A08600D26ECC /* Array.cpp in Sources */,
 				4AC41B5A2513A0D000D26ECC /* util.cpp in Sources */,
+				E4F9846F2ACDFD7D0030BF60 /* X509Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,7 +664,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -622,7 +720,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -643,10 +741,15 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/iociesdkios/include";
 				INFOPLIST_FILE = iociesdkios/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -678,10 +781,15 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/iociesdkios/include";
 				INFOPLIST_FILE = iociesdkios/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
