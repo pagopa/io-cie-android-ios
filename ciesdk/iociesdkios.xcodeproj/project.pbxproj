@@ -646,7 +646,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/iociesdkios/include";
 				INFOPLIST_FILE = iociesdkios/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -681,7 +681,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/iociesdkios/include";
 				INFOPLIST_FILE = iociesdkios/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

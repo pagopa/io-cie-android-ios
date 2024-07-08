@@ -77,11 +77,11 @@ public class CIEIDSdk : NSObject, NFCTagReaderSessionDelegate {
         super.init()
         self.initMessages()
     }
-  
+    
     private func debugPrint(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-      if (self.enableLog) {
-        print(items, separator, terminator)
-      }
+        if (self.enableLog) {
+            print(items, separator, terminator)
+        }
     }
     
     private func initMessages(){
@@ -106,16 +106,16 @@ public class CIEIDSdk : NSObject, NFCTagReaderSessionDelegate {
             alertMessages[maybeKey!] = value
         }
     }
-  
+    
     @objc
     public func setCustomIdpUrl(url: String?) {
-      self.customIdpUrl = url
-      debugPrint("Custom idp url set: " + (url ?? "null"))
+        self.customIdpUrl = url
+        debugPrint("Custom idp url set: " + (url ?? "null"))
     }
-  
+    
     @objc
     public func enableLog(isEnabled: Bool) {
-      self.enableLog = isEnabled
+        self.enableLog = isEnabled
     }
     
     private func start(completed: @escaping (String?, String?)->() ) {
@@ -138,17 +138,17 @@ public class CIEIDSdk : NSObject, NFCTagReaderSessionDelegate {
     
     @objc
     public func post(url: String, pin: String, completed: @escaping (String?, String?)->() ) {
-           self.pin = pin
-           self.url = url
-
-           self.start(completed: completed)
+        self.pin = pin
+        self.url = url
+        
+        self.start(completed: completed)
     }
     
     @objc
     public func hasNFCFeature() -> Bool {
         return NFCTagReaderSession.readingAvailable
     }
-
+    
     public func tagReaderSessionDidBecomeActive(_ session: NFCTagReaderSession) {
         Log.debug( "tagReaderSessionDidBecomeActive" )
     }
@@ -199,19 +199,23 @@ public class CIEIDSdk : NSObject, NFCTagReaderSessionDelegate {
             self.startReading( )
         }
     }
-
+    
     func startReading()
     {
-
-        let url1 = URL(string: self.url!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
         
-        let value = url1!.queryParameters[Constants.KEY_VALUE]!
-        let name = url1!.queryParameters[Constants.KEY_NAME]!
-        let authnRequest = url1!.queryParameters[Constants.KEY_AUTHN_REQUEST_STRING]!
-        let nextUrl = url1!.queryParameters[Constants.KEY_NEXT_UTL]!
-//        let opText = url1!.queryParameters[Constants.KEY_OP_TEXT]!
-//        let logo = url1?.queryParameters[Constants.KEY_LOGO]!
-
+        guard let urlString = self.url?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let parsedUrl = URL(string: urlString),
+              let pin = self.pin
+        else {
+            return;
+        }
+        
+        
+        let value = parsedUrl.queryParameters[Constants.KEY_VALUE] ?? ""
+        let name = parsedUrl.queryParameters[Constants.KEY_NAME] ?? ""
+        let authnRequest = parsedUrl.queryParameters[Constants.KEY_AUTHN_REQUEST_STRING] ?? ""
+        let nextUrl = parsedUrl.queryParameters[Constants.KEY_NEXT_UTL] ?? ""
+        
         let params = "\(value)=\(name)&\(Constants.authnRequest)=\(authnRequest)&\(Constants.generaCodice)=1"
         
         let baseIdpUrl = self.customIdpUrl ?? Constants.BASE_URL_IDP
@@ -219,79 +223,79 @@ public class CIEIDSdk : NSObject, NFCTagReaderSessionDelegate {
         
         // It's safe to force unwrap when using UTF enconding, because swift string use Unicode internally
         let missingDataPlaceholder = "codice:XXX".data(using: .utf8)!
-      
+        
         self.cieTagReader?.post(
-          url: baseIdpUrl,
-          pin: self.pin!,
-          data: params,
-          completed: { [weak self] (data, error) in
-            guard let self = self else {
-              return
-            }
-            
-            let  session = self.readerSession
-            //self.readerSession = nil
-            // session?.invalidate()
-            Log.debug( "error- \(error)" )
-            switch(error)
-            {
+            url: baseIdpUrl,
+            pin: pin,
+            data: params,
+            completed: { [weak self] (data, error) in
+                guard let self = self else {
+                    return
+                }
+                
+                let  session = self.readerSession
+                //self.readerSession = nil
+                // session?.invalidate()
+                Log.debug( "error- \(error)" )
+                switch(error)
+                {
                 case 0:  // OK
-                session?.alertMessage = self.alertMessages[AlertMessageKey.readingSuccess]!
+                    session?.alertMessage = self.alertMessages[AlertMessageKey.readingSuccess]!
                     let response = String(data: data ?? missingDataPlaceholder, encoding: .utf8)
                     do {
-                      guard let response = response else {
-                          throw NSError(
-                            domain: "ios-cie-sdk",
-                            code: 100,
-                            userInfo: [NSLocalizedDescriptionKey: "Response is nil."]
-                          )
-                      }
-                      let components = response.split(separator: ":")
-                      if components.count < 2 {
-                          throw NSError(
-                            domain: "ios-cie-sdk",
-                            code: 101,
-                            userInfo: [
-                              NSLocalizedDescriptionKey:
-                                "Expected component not found after splitting response."
-                            ]
-                          )
-                      }
-                      let serverCode = String(components[1])
-                      let newurl = nextUrl + "?" + name + "=" + value + "&login=1&codice=" + serverCode
-                      self.debugPrint("newurl \(newurl)")
-                      self.completedHandler(nil, newurl)
-                      session?.invalidate()
+                        guard let response = response else {
+                            throw NSError(
+                                domain: "ios-cie-sdk",
+                                code: 100,
+                                userInfo: [NSLocalizedDescriptionKey: "Response is nil."]
+                            )
+                        }
+                        let components = response.split(separator: ":")
+                        if components.count < 2 {
+                            throw NSError(
+                                domain: "ios-cie-sdk",
+                                code: 101,
+                                userInfo: [
+                                    NSLocalizedDescriptionKey:
+                                        "Expected component not found after splitting response."
+                                ]
+                            )
+                        }
+                        let serverCode = String(components[1])
+                        let newurl = nextUrl + "?" + name + "=" + value + "&login=1&codice=" + serverCode
+                        self.debugPrint("newurl \(newurl)")
+                        self.completedHandler(nil, newurl)
+                        session?.invalidate()
                     } catch {
-                      self.debugPrint("An error occurred: \(error.localizedDescription)")
-                      self.completedHandler("AUTHENTICATION_ERROR", nil)
-                      session?.invalidate(errorMessage: self.alertMessages[AlertMessageKey.genericError]!)
+                        self.debugPrint("An error occurred: \(error.localizedDescription)")
+                        self.completedHandler("AUTHENTICATION_ERROR", nil)
+                        session?.invalidate(errorMessage: self.alertMessages[AlertMessageKey.genericError]!)
                     }
                     break;
                 case 0x63C0,0x6983: // PIN LOCKED
                     self.attemptsLeft = 0
-                session?.invalidate(errorMessage: self.alertMessages[AlertMessageKey.cardLocked]!)
+                    session?.invalidate(errorMessage: self.alertMessages[AlertMessageKey.cardLocked]!)
                     self.completedHandler("ON_CARD_PIN_LOCKED", nil)
                     break;
-                
+                    
                 case 0x63C1: // WRONG PIN 1 ATTEMPT LEFT
                     self.attemptsLeft = 1
                     self.completedHandler("ON_PIN_ERROR", nil)
-                session?.invalidate(errorMessage: self.alertMessages[AlertMessageKey.wrongPin1AttemptLeft]!)
+                    session?.invalidate(errorMessage: self.alertMessages[AlertMessageKey.wrongPin1AttemptLeft]!)
                     break;
-                
+                    
                 case 0x63C2: // WRONG PIN 2 ATTEMPTS LEFT
                     self.attemptsLeft = 2
                     self.completedHandler("ON_PIN_ERROR", nil)
                     session?.invalidate(errorMessage: self.alertMessages[AlertMessageKey.wrongPin2AttemptLeft]!)
                     break;
-                
+                    
                 default: // OTHER ERROR
                     self.completedHandler(ErrorHelper.decodeError(error: error), nil)
                     session?.invalidate(errorMessage:ErrorHelper.nativeError(errorMessage:ErrorHelper.decodeError(error: error)))
                     break;
-                
-            }            
-        })
+                    
+                }
+            })
     }
 }
