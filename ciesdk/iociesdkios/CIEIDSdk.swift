@@ -38,7 +38,12 @@ struct Constants {
     //"https://idserver.servizicie.interno.gov.it:8443/idp/"
 }
 
-struct PidCieData: Codable {
+struct CieData: Codable {
+    var url = ""
+    var pidData = PidData()
+}
+
+struct PidData: Codable {
     var name = ""
     var surname = ""
     var fiscalCode = ""
@@ -259,12 +264,14 @@ public class CIEIDSdk : NSObject, NFCTagReaderSessionDelegate {
         return 1 // Default to January if the code is not recognized.
     }
     
+    
+    
     func x509CertificateToJSON(certificateData: Data) -> String? {
         
         do {
             let x509 = try X509Certificate(data: certificateData)
             
-            var pidCieData = PidCieData()
+            var pidCieData = PidData()
             pidCieData.name = x509.subject(oid: OID.givenName)?.first ?? ""
             pidCieData.surname = x509.subject(oid: OID.surname)?.first ?? ""
             let commonName = x509.subject(oid: OID.commonName)?.first
@@ -274,22 +281,15 @@ public class CIEIDSdk : NSObject, NFCTagReaderSessionDelegate {
                 pidCieData.birthDate = extractDateOfBirth(from: pidCieData.fiscalCode) ?? ""
             }
             
-            var certificateInfo: [String: Any] = [:]
-            certificateInfo["url"] = "https://collaudo.idserver.servizicie.interno.gov.it/idp/Authn/X509MobileTLS13Second?"
+            var certificateInfo = CieData()
+            certificateInfo.url = "https://collaudo.idserver.servizicie.interno.gov.it/idp/Authn/X509MobileTLS13Second?"
+            certificateInfo.pidData = pidCieData
             
-            let data = try? JSONEncoder().encode(pidCieData)
-            if let jsonData = data {
-                if let jsonString = String(data: jsonData, encoding: .utf8) {
-                    certificateInfo["cieData"] = jsonString
-                }
-            }
+            let encodedData = try JSONEncoder().encode(certificateInfo)
+            let jsonString = String(data: encodedData,
+                                    encoding: .utf8)
+            return jsonString
             
-            if let jsonCertificateInfoData = try? JSONSerialization.data(withJSONObject: certificateInfo, options: .prettyPrinted) {
-                if let jsonCertificateInfo = String(data: jsonCertificateInfoData, encoding: .utf8) {
-                    return jsonCertificateInfo
-                }
-                
-            }
         } catch {
             print(error)
         }
